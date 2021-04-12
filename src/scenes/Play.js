@@ -81,7 +81,7 @@ class Play extends Phaser.Scene {
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
         }
-        
+
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             this.scene.start("menuScene");
         }
@@ -125,6 +125,7 @@ class Play extends Phaser.Scene {
     shipExplode(ship) {
         // temporarily hide ship
         ship.alpha = 0;
+
         // create explosion sprite at ship's position
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
         boom.anims.play('explode');             // play explode animation
@@ -133,6 +134,7 @@ class Play extends Phaser.Scene {
           ship.alpha = 1;                       // make ship visible again
           boom.destroy();                       // remove explosion sprite
         }); 
+        
         // score add and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;   
