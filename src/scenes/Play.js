@@ -68,6 +68,12 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
         // 60-second play clock
+        if (game.settings.gameTimer >= 30000 && game.settings.mode == 0){
+            game.settings.spaceshipSpeed = 10;
+        }
+        if (game.settings.gameTimer >= 30000 && game.settings.mode == 1){
+            game.settings.spaceshipSpeed = 20;
+        }
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
@@ -79,7 +85,7 @@ class Play extends Phaser.Scene {
     update() {
         // check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
-            this.scene.restart();
+            this.scene.start("playScene", game.highScore);
         }
 
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
